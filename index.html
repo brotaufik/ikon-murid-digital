@@ -309,9 +309,12 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
 .cmini figcaption{font-size:17px;color:rgba(255,255,255,.72);font-weight:300;line-height:1.4}
 
 /* ---------- competition logo band on a content slide ---------- */
-.slide-logos{display:flex;align-items:center;gap:20px;background:#fff;border-radius:12px;
-  padding:10px 20px;align-self:flex-start;margin-bottom:20px}
-.slide-logos img{height:46px;width:auto;display:block}
+.slide-logos{display:flex;align-items:center;gap:30px;background:#fff;border-radius:14px;
+  padding:16px 28px;align-self:flex-start;margin-bottom:22px}
+/* 96px keeps the smallest line on the NICTSeD mark ("CyberSAFE Challenge Trophy
+   2026") at ~19px in design units, which survives the deck's fit-to-screen
+   scale and stays readable. It measured 25/126 of the source image height. */
+.slide-logos img{height:96px;width:auto;display:block}
 </style>
 </head>
 <body>
