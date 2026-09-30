@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>Ikon Murid Digital &middot; Arfa Ameera Binti Taufik</title>
 <meta name="description" content="Pencalonan Ikon Murid Digital, Anugerah DUTA Peringkat Kebangsaan. Arfa Ameera Binti Taufik, SMK St. Bernadette's Convent, Perak. 19 slide merangkumi rangka kerja UPSHIFT dan MAHIR serta pencapaian Best Presenter dan 2nd Runner Up NICTSeD 2026.">
@@ -33,10 +33,10 @@
   --panel:#ffffff;--line:rgba(255,255,255,.16);--sbbg:#1B2029;
   --f:'Century Gothic','URW Gothic','Questrial','Poppins','Trebuchet MS',sans-serif;
 }
-html,body{height:100%;background:#14161C;font-family:var(--f);color:var(--ink);overflow:hidden}
+html,body{height:100%;background:#14161C;font-family:var(--f);color:var(--ink);overflow:hidden;overscroll-behavior:none}
 kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;font-family:var(--f)}
 
-#app{display:grid;grid-template-columns:300px 1fr;height:100vh;transition:grid-template-columns .22s ease}
+#app{display:grid;grid-template-columns:300px 1fr;grid-template-rows:minmax(0,1fr);height:100vh;height:100dvh;transition:grid-template-columns .22s ease}
 #app.nosb{grid-template-columns:0 1fr}
 
 /* ---------- sidebar ---------- */
@@ -59,7 +59,7 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
 .sb-ft{padding:12px 20px;border-top:1px solid var(--line);font-size:10.5px;letter-spacing:.08em;color:rgba(255,255,255,.35);text-transform:uppercase}
 
 /* ---------- chrome ---------- */
-#main{display:flex;flex-direction:column;min-width:0;background:#14161C;position:relative}
+#main{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:#14161C;position:relative}
 .bar{flex:0 0 auto;display:flex;align-items:center;gap:9px;padding:11px 18px;border-bottom:1px solid var(--line);background:#1B2029}
 .btn{background:rgba(255,255,255,.07);border:1px solid var(--line);color:#fff;border-radius:9px;padding:7px 13px;font-size:13px;font-family:var(--f);cursor:pointer;white-space:nowrap}
 .btn:hover{background:rgba(255,255,255,.14);border-color:var(--mag)}
@@ -80,8 +80,10 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
 #nt-b{font-size:14px;line-height:1.55;color:var(--muted)}
 
 /* ---------- stage ---------- */
-#stage{flex:1 1 auto;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#0F1218}
-#frame{flex:0 0 auto;width:1920px;height:1080px;position:relative;transform-origin:center center}
+#stage{flex:1 1 0;min-height:0;position:relative;overflow:hidden;background:#0F1218}
+/* Absolutely centred and scaled from JS. Its 1920x1080 layout box must never size the stage:
+   as a flex child it did, which on phones made the stage 1080px tall and pushed the slide off screen. */
+#frame{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;transform:translate(-50%,-50%) scale(.2)}
 #zoneBack,#zoneFwd{position:absolute;top:0;bottom:0;width:6%;z-index:5;cursor:pointer}
 #zoneBack{left:0}#zoneFwd{right:0}
 
@@ -251,6 +253,13 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
   #full{display:none}
   .hint{display:none}
 }
+/* phone held upright: the 16:9 slide is small, so say how to see it larger */
+#rot{display:none}
+@media (max-width:760px) and (orientation:portrait){
+  #rot{display:block;flex:0 0 auto;padding:10px 14px calc(10px + env(safe-area-inset-bottom));text-align:center;
+    font-size:13px;color:rgba(255,255,255,.62);background:#1B2029;border-top:1px solid var(--line)}
+  #rot b{color:#fff}
+}
 
 /* ---------- cover achievement strip ---------- */
 .cov-win{display:flex;gap:16px;margin-top:30px}
@@ -358,6 +367,14 @@ a.gv-ph:hover img{transform:translateY(-4px)}
 a.gv-ph span{font-size:15px;line-height:1.35;color:rgba(255,255,255,.72);margin-top:9px}
 a.gv-ph span b{color:#fff}
 .gv-info{flex:1 1 0;min-width:0;padding-left:16px}
+
+/* phone held sideways: every pixel of height goes to the slide */
+@media (max-height:500px) and (orientation:landscape){
+  .bar{padding:5px 10px;gap:6px}
+  .btn{padding:4px 10px;font-size:12px}
+  .hint{display:none}
+  #rot{display:none}
+}
 </style>
 </head>
 <body>
@@ -730,6 +747,7 @@ a.gv-ph span b{color:#fff}
   </div>
 </div></div><div class="sfoot"><span class="sf-l">Penutup</span><span class="sf-r">19 / 19</span></div></section></div>
     </div>
+    <div id="rot">&#8635; Pusingkan telefon ke <b>mod landskap</b> untuk paparan slide lebih besar &middot; leret kiri atau kanan untuk tukar slide</div>
     <div class="hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navigasi &middot; <kbd>H</kbd> utama &middot; <kbd>N</kbd> nota &middot; ketik skrin untuk ke hadapan</div>
     <div id="notes"><div class="nt-h">Nota penyampai</div><div id="nt-b"></div></div>
   </main>
@@ -780,7 +798,7 @@ a.gv-ph span b{color:#fff}
     var w = st.clientWidth, h = st.clientHeight;
     if (!w || !h) return;
     var s = Math.min(w / 1920, h / 1080);
-    fr.style.transform = "scale(" + s + ")";
+    fr.style.transform = "translate(-50%,-50%) scale(" + s + ")";
   }
 
   // ---------- chrome ----------
