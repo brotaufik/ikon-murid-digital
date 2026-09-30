@@ -326,6 +326,16 @@ a.site-link:hover,a.site-link:focus-visible{transform:translateY(-4px);border-co
 a.qrcard:hover,a.qrcard:focus-visible{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.45);outline:none}
 a.site-link .su{text-decoration:underline;text-decoration-color:rgba(63,201,224,.45);text-underline-offset:4px}
 .ext{font-size:.95em;margin-left:4px;color:var(--cyan)}
+
+/* ---------- slide 11: sijil ---------- */
+.certs{display:flex;gap:40px;flex:1;min-height:0;align-items:flex-start}
+.cinfo{flex:1 1 0;min-width:0}
+a.cert{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit}
+a.cert img{display:block;height:700px;width:auto;border-radius:10px;border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 18px 44px rgba(0,0,0,.45);transition:transform .18s ease,box-shadow .18s ease}
+a.cert:hover img{transform:translateY(-5px);box-shadow:0 24px 54px rgba(0,0,0,.55)}
+a.cert .cc{font-size:17px;line-height:1.35;margin-top:14px;color:rgba(255,255,255,.72);text-align:center}
+a.cert .cc b{color:#fff;font-size:20px}
 </style>
 </head>
 <body>
@@ -538,14 +548,19 @@ a.site-link .su{text-decoration:underline;text-decoration-color:rgba(63,201,224,
     <div class="sd">Kertas cadangan, FAQ, skrip penyampai, deck PowerPoint natif 30 slide dan audit kesiapsiagaan.</div></div>
   </div>
 </div></div><div class="sfoot"><span class="sf-l">3 &middot; Ringkasan Produk / Bahan</span><span class="sf-r">10 / 18</span></div></section><section class="slide " data-n="11"><svg class="shards" viewBox="0 0 1920 1080" aria-hidden="true"><path d="M966 906 l73 73 l-25 0 l-73 -73 z" fill="#E12FA0" opacity="0.27"/><path d="M1639 496 l66 66 l-22 0 l-66 -66 z" fill="#9B4DE0" opacity="0.21"/><path d="M1242 214 l49 49 l-17 0 l-49 -49 z" fill="#FF5FC8" opacity="0.26"/><path d="M1014 664 l77 77 l-26 0 l-77 -77 z" fill="#E12FA0" opacity="0.26"/><path d="M232 477 l57 57 l-19 0 l-57 -57 z" fill="#9B4DE0" opacity="0.15"/><path d="M1143 849 l94 94 l-32 0 l-94 -94 z" fill="#FF5FC8" opacity="0.24"/><path d="M125 629 l63 63 l-21 0 l-63 -63 z" fill="#E12FA0" opacity="0.29"/><path d="M1399 786 l277 -138" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/><path d="M1391 191 l279 -140" stroke="#E12FA0" stroke-width="3" fill="none" opacity="0.18"/><path d="M90 881 l255 -128" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/><path d="M189 90 l129 -64" stroke="#E12FA0" stroke-width="3" fill="none" opacity="0.18"/><path d="M449 930 l181 -90" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/></svg><div class="inner"><div class="kicker">Eviden Penyertaan</div><h1>Sijil dan Surat Panggilan</h1>
-<div class="two">
-  <div class="col">
-    <div class="bls"><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Sijil <b>Best Presenter</b> NICTSeD 2026</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Sijil <b>2nd Runner Up</b> NICTSeD 2026</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Surat panggilan atau jemputan ke Grand Final</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Surat pengesahan penyertaan daripada pihak sekolah</span></div></div>
-    <div class="note">Sisipkan imbasan sijil dan surat di ruang sebelah. Simpan versi asal dalam borang pencalonan rasmi.</div>
+<div class="certs">
+  <div class="cinfo">
+    <div class="bls"><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Sijil <b>Certificate of Excellence</b> atas nama <b>Arfa Ameera Binti Taufik</b></span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt"><b>Grand Final Best Presenter</b>, anugerah individu</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt"><b>Grand Final Second Runner Up</b>, anugerah pasukan</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Bertarikh <b>10 September 2026</b>, Sektor Sumber dan Teknologi Pendidikan, Jabatan Pendidikan Negeri Kelantan</span></div><div class="bl"><span class="blm" style="background:#F2B233"></span><span class="blt">Ditandatangani Pengarah <b>Bahagian Sumber dan Teknologi Pendidikan, KPM</b> dan Pemangku Ketua Pegawai Eksekutif <b>CyberSecurity Malaysia</b></span></div></div>
+    <div class="note">Klik pada sijil untuk paparan saiz penuh.</div>
   </div>
-  <div class="col">
-    <div class="drop"><div class="dropi">+</div><div class="dropl">Ruang salinan sijil dan surat</div><div class="drops">Seret dokumen anda ke ruang ini</div></div>
-  </div>
+  <a class="cert" href="sijil-best-presenter.jpg" target="_blank" rel="noopener">
+    <img src="sijil-best-presenter.jpg" alt="Certificate of Excellence, Grand Final Best Presenter NICTSeD 2026, Arfa Ameera Binti Taufik">
+    <span class="cc"><b>Best Presenter</b><br>Anugerah Individu</span>
+  </a>
+  <a class="cert" href="sijil-2nd-runner-up.jpg" target="_blank" rel="noopener">
+    <img src="sijil-2nd-runner-up.jpg" alt="Certificate of Excellence, Grand Final Second Runner Up NICTSeD 2026, Arfa Ameera Binti Taufik">
+    <span class="cc"><b>Second Runner Up</b><br>Anugerah Pasukan</span>
+  </a>
 </div></div><div class="sfoot"><span class="sf-l">4 &middot; Lampiran Sijil dan Surat</span><span class="sf-r">11 / 18</span></div></section><section class="slide " data-n="12"><svg class="shards" viewBox="0 0 1920 1080" aria-hidden="true"><path d="M1011 295 l80 80 l-27 0 l-80 -80 z" fill="#E12FA0" opacity="0.22"/><path d="M756 166 l62 62 l-21 0 l-62 -62 z" fill="#9B4DE0" opacity="0.12"/><path d="M807 514 l55 55 l-19 0 l-55 -55 z" fill="#FF5FC8" opacity="0.24"/><path d="M982 727 l93 93 l-32 0 l-93 -93 z" fill="#E12FA0" opacity="0.23"/><path d="M1183 21 l80 80 l-27 0 l-80 -80 z" fill="#9B4DE0" opacity="0.23"/><path d="M941 396 l48 48 l-16 0 l-48 -48 z" fill="#FF5FC8" opacity="0.18"/><path d="M470 80 l74 74 l-25 0 l-74 -74 z" fill="#E12FA0" opacity="0.27"/><path d="M212 555 l295 -148" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/><path d="M1737 375 l294 -147" stroke="#E12FA0" stroke-width="3" fill="none" opacity="0.18"/><path d="M888 847 l142 -71" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/><path d="M98 970 l135 -68" stroke="#E12FA0" stroke-width="3" fill="none" opacity="0.18"/><path d="M1738 966 l289 -144" stroke="#9B4DE0" stroke-width="3" fill="none" opacity="0.18"/></svg><div class="inner"><div class="kicker">Eviden Visual &middot; Pasukan</div><h1>2nd Runner Up NICTSeD 2026</h1>
 <div class="crow">
   <figure class="cfig">
@@ -666,7 +681,7 @@ a.site-link .su{text-decoration:underline;text-decoration-color:rgba(63,201,224,
   var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
 
   var TOTAL = 18;
-  var NOTES = {"1": "Muka hadapan pencalonan. Sahkan kod sekolah sebelum hantar.", "2": "Perkenalkan calon. Tekankan bukti kerja, bukan sekadar penyertaan.", "3": "Terangkan pertandingan dahulu, kerana juri DUTA mungkin tidak mengenali NICTSeD.", "4": "Dua pusingan, dua rangka kerja berasingan. Ini menunjukkan konsistensi, bukan tuah sekali.", "5": "Best Presenter ialah anugerah individu. Tekankan sumbangan peribadi Ameera.", "6": "Tekankan produk digital sebenar, bukan sekadar slide pembentangan.", "7": "UPSHIFT: lima komponen S-H-I-F-T menutup tiga jurang.", "8": "MAHIR: lima peraturan, setiap satu dengan pemilik, tarikh dan metrik.", "9": "Ini yang membezakan pembentangan ini: setiap angka boleh disemak.", "10": "Setiap laman ini masih hidup dan boleh dilawati oleh juri.", "11": "Slot lampiran. Perlu diisi oleh Bro Taufik dengan imbasan sebenar.", "12": "Pencapaian pasukan: 2nd Runner Up, hadiah RM 1,500.", "13": "Pencapaian individu Ameera: Best Presenter, hadiah RM 1,000.", "14": "Dua montaj: UPSHIFT 22 saat untuk separuh akhir, MAHIR 40 saat untuk Grand Final.", "15": "Kod QR di sini boleh diimbas terus dari skrin.", "16": "Ini seksyen paling penting untuk kategori Ikon Murid Digital.", "17": "Angka ini menjawab soalan 'apa sebenarnya dia buat sendiri'.", "18": "Penutup dengan kod QR ke pembentangan ini sendiri."};
+  var NOTES = {"1": "Muka hadapan pencalonan. Sahkan kod sekolah sebelum hantar.", "2": "Perkenalkan calon. Tekankan bukti kerja, bukan sekadar penyertaan.", "3": "Terangkan pertandingan dahulu, kerana juri DUTA mungkin tidak mengenali NICTSeD.", "4": "Dua pusingan, dua rangka kerja berasingan. Ini menunjukkan konsistensi, bukan tuah sekali.", "5": "Best Presenter ialah anugerah individu. Tekankan sumbangan peribadi Ameera.", "6": "Tekankan produk digital sebenar, bukan sekadar slide pembentangan.", "7": "UPSHIFT: lima komponen S-H-I-F-T menutup tiga jurang.", "8": "MAHIR: lima peraturan, setiap satu dengan pemilik, tarikh dan metrik.", "9": "Ini yang membezakan pembentangan ini: setiap angka boleh disemak.", "10": "Setiap laman ini masih hidup dan boleh dilawati oleh juri.", "11": "Dua sijil rasmi Grand Final NICTSeD 2026, 10 September 2026. Klik sijil untuk buka saiz penuh.", "12": "Pencapaian pasukan: 2nd Runner Up, hadiah RM 1,500.", "13": "Pencapaian individu Ameera: Best Presenter, hadiah RM 1,000.", "14": "Dua montaj: UPSHIFT 22 saat untuk separuh akhir, MAHIR 40 saat untuk Grand Final.", "15": "Kod QR di sini boleh diimbas terus dari skrin.", "16": "Ini seksyen paling penting untuk kategori Ikon Murid Digital.", "17": "Angka ini menjawab soalan 'apa sebenarnya dia buat sendiri'.", "18": "Penutup dengan kod QR ke pembentangan ini sendiri."};
   var cur = 1;
   var advTimer = null;
 
