@@ -25,7 +25,7 @@
 <meta name="twitter:image:alt" content="Kad pencalonan Ikon Murid Digital">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#313842;--bg2:#272d36;--ink:#ffffff;--body:#14161C;--muted:#C9CFDA;
@@ -212,9 +212,11 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
 .cov-main{flex:1;display:flex;gap:52px;align-items:center;min-height:0}
 .cov-left{flex:1 1 0;min-width:0}
 .cov-kat{font-size:21px;letter-spacing:.2em;color:var(--pink);font-weight:700}
-.cov-h1{font-size:108px;line-height:1.02;font-weight:700;margin:14px 0 20px;letter-spacing:-.025em;
-  background:linear-gradient(96deg,#ffffff 0%,#FFC2E8 42%,#FF5FC8 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* one line, heavy, yellow; Poppins named first so the weight is real, not a faux bold of Questrial */
+.cov-head{margin-top:22px}
+.slide h1.cov-h1{font-family:'Poppins',var(--f);font-size:150px;line-height:1;font-weight:800;margin:12px 0 0;letter-spacing:-.02em;
+  color:#FFD23F;white-space:nowrap;text-shadow:0 6px 30px rgba(255,210,63,.18)}
+.cov-h2{font-family:'Poppins',var(--f);font-size:70px;line-height:1.1;font-weight:700;letter-spacing:.14em;color:#8FD8FF;margin-top:6px;white-space:nowrap}
 .cov-sub{font-size:24px;line-height:1.4;color:#D6DCE6;font-weight:300}
 .cov-school{display:flex;align-items:center;gap:16px;margin-top:36px}
 .cov-school img{height:96px;width:auto;display:block}
@@ -415,10 +417,13 @@ a.gv-ph span b{color:#fff}
     <img src="logo-jata.png" alt="Jata Negara Malaysia">
     <div class="cov-min"><b>KEMENTERIAN PENDIDIKAN</b><span>Anugerah DUTA Peringkat Kebangsaan 2026</span></div>
   </div>
+  <div class="cov-head">
+    <div class="cov-kat">KATEGORI PENCALONAN</div>
+    <h1 class="cov-h1">IKON MURID DIGITAL</h1>
+    <div class="cov-h2">KESELAMATAN SIBER</div>
+  </div>
   <div class="cov-main">
     <div class="cov-left">
-      <div class="cov-kat">KATEGORI PENCALONAN</div>
-      <h1 class="cov-h1">IKON MURID<br>DIGITAL</h1>
       <div class="cov-sub">Digital Utilisation and Technology Awards (DUTA)<br>Peringkat Kebangsaan</div>
       <div class="cov-school">
         <img src="logo-sekolah.png" alt="Lambang SMK St. Bernadette's Convent">
