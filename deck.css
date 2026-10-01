@@ -1,0 +1,403 @@
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#313842;--bg2:#272d36;--ink:#ffffff;--body:#14161C;--muted:#C9CFDA;
+  --mag:#E12FA0;--vio:#9B4DE0;--pink:#FF5FC8;--cyan:#3FC9E0;--amber:#F2B233;--green:#3FCB8E;
+  --panel:#ffffff;--line:rgba(255,255,255,.16);--sbbg:#1B2029;
+  --f:'Century Gothic','URW Gothic','Questrial','Poppins','Trebuchet MS',sans-serif;
+}
+html,body{height:100%;background:#14161C;font-family:var(--f);color:var(--ink);overflow:hidden;overscroll-behavior:none}
+kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;font-family:var(--f)}
+
+#app{display:grid;grid-template-columns:300px 1fr;grid-template-rows:minmax(0,1fr);height:100vh;height:100dvh;transition:grid-template-columns .22s ease}
+#app.nosb{grid-template-columns:0 1fr}
+
+/* ---------- sidebar ---------- */
+#sb{background:var(--sbbg);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;visibility:visible}
+#app.nosb #sb{visibility:hidden;width:0}
+.sb-hd{padding:20px 20px 16px;border-bottom:1px solid var(--line)}
+.sb-t{font-size:15px;font-weight:700;letter-spacing:.09em;color:var(--mag)}
+.sb-s{font-size:13px;color:var(--muted);margin-top:5px}
+#nav{flex:1;overflow-y:auto;padding:10px 0 20px}
+#nav::-webkit-scrollbar{width:7px}#nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:4px}
+.ncl{margin-bottom:6px}
+.nch{padding:11px 20px 7px;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--vio);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.ncc{color:rgba(255,255,255,.3);font-weight:400;letter-spacing:.04em}
+#nav ul{list-style:none}
+#nav li{display:flex;gap:10px;align-items:baseline;padding:7px 20px;font-size:12.5px;color:rgba(255,255,255,.72);cursor:pointer;border-left:3px solid transparent;line-height:1.35}
+#nav li:hover{background:rgba(255,255,255,.05);color:#fff}
+#nav li.on{background:rgba(225,47,160,.16);border-left-color:var(--mag);color:#fff}
+.nn{font-size:10.5px;color:rgba(255,255,255,.38);flex:0 0 20px}
+.nt{flex:1}
+.sb-ft{padding:12px 20px;border-top:1px solid var(--line);font-size:10.5px;letter-spacing:.08em;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+/* ---------- chrome ---------- */
+#main{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:#14161C;position:relative}
+.bar{flex:0 0 auto;display:flex;align-items:center;gap:9px;padding:11px 18px;border-bottom:1px solid var(--line);background:#1B2029}
+.btn{background:rgba(255,255,255,.07);border:1px solid var(--line);color:#fff;border-radius:9px;padding:7px 13px;font-size:13px;font-family:var(--f);cursor:pointer;white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.14);border-color:var(--mag)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn:disabled:hover{background:rgba(255,255,255,.07);border-color:var(--line)}
+#next{background:var(--mag);border-color:var(--mag);font-weight:600}
+#next:hover{background:var(--pink);border-color:var(--pink)}
+#next:disabled{background:rgba(255,255,255,.07);border-color:var(--line)}
+.now{font-size:12.5px;color:var(--muted);margin-left:6px}
+#sect{color:var(--vio)}
+.spacer{flex:1}
+.prog{flex:0 0 auto;height:3px;background:rgba(255,255,255,.07)}
+.prog-f{height:100%;background:linear-gradient(90deg,var(--vio),var(--mag),var(--pink));width:0;transition:width .25s ease}
+.hint{flex:0 0 auto;padding:8px 18px;font-size:11.5px;color:rgba(255,255,255,.4);border-top:1px solid var(--line);background:#1B2029;text-align:center}
+#notes{display:none;flex:0 0 auto;max-height:26vh;overflow-y:auto;padding:14px 20px;background:#0F1218;border-top:1px solid var(--line)}
+#notes.on{display:block}
+.nt-h{font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--amber);margin-bottom:7px;font-weight:700}
+#nt-b{font-size:14px;line-height:1.55;color:var(--muted)}
+
+/* ---------- stage ---------- */
+#stage{flex:1 1 0;min-height:0;position:relative;overflow:hidden;background:#0F1218}
+/* Absolutely centred and scaled from JS. Its 1920x1080 layout box must never size the stage:
+   as a flex child it did, which on phones made the stage 1080px tall and pushed the slide off screen. */
+#frame{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;transform:translate(-50%,-50%) scale(.2)}
+#zoneBack,#zoneFwd{position:absolute;top:0;bottom:0;width:6%;z-index:5;cursor:pointer}
+#zoneBack{left:0}#zoneFwd{right:0}
+
+.slide{position:absolute;inset:0;display:none;background:var(--bg);overflow:hidden}
+.slide.on{display:block}
+.shards{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.inner{position:absolute;inset:0;padding:64px 72px 74px;display:flex;flex-direction:column;z-index:2}
+.sfoot{position:absolute;left:72px;right:72px;bottom:26px;display:flex;justify-content:space-between;font-size:17px;color:rgba(255,255,255,.42);letter-spacing:.05em;z-index:3}
+.sf-r{color:var(--mag);font-weight:600}
+
+.kicker{font-size:22px;letter-spacing:.15em;text-transform:uppercase;color:var(--pink);font-weight:700;margin-bottom:12px}
+.slide h1{font-size:54px;line-height:1.14;font-weight:700;color:#FFD23F;margin-bottom:26px;letter-spacing:-.01em}
+
+.lead{font-size:26px;line-height:1.5;color:#E8ECF3;margin-bottom:22px;font-weight:300}
+.muted{color:rgba(255,255,255,.55)}
+.note{font-size:19px;line-height:1.5;color:#D6DCE6;background:rgba(255,255,255,.06);border-left:5px solid var(--vio);padding:15px 20px;border-radius:0 10px 10px 0;margin-top:18px;font-weight:300}
+.note b{font-weight:700;color:#fff}
+.ttl{font-size:17px;letter-spacing:.11em;text-transform:uppercase;color:var(--cyan);font-weight:700;margin:20px 0 12px}
+.ttl:first-child{margin-top:0}
+.punch{font-size:28px;font-weight:700;color:var(--amber);margin-top:22px;line-height:1.3}
+
+.two{display:flex;gap:44px;flex:1;min-height:0}
+.two .col{flex:1 1 0;min-width:0;display:flex;flex-direction:column}
+
+/* ---------- bullets ---------- */
+.bls{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+.bl{display:flex;gap:15px;align-items:flex-start}
+.blm{flex:0 0 11px;height:11px;border-radius:3px;margin-top:9px}
+.blt{font-size:21px;line-height:1.48;color:#E8ECF3;font-weight:300}
+.blt b{font-weight:700;color:#fff}
+
+/* ---------- stat cards ---------- */
+.scrow{display:flex;gap:16px;margin-bottom:18px}
+.sc{flex:1 1 0;background:rgba(255,255,255,.07);border:1px solid var(--line);border-left:6px solid;border-radius:12px;padding:18px 20px;min-width:0}
+.scv{font-size:40px;font-weight:700;line-height:1.05;letter-spacing:-.02em}
+.scl{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-weight:700;margin-top:8px}
+.scs{font-size:15px;color:rgba(255,255,255,.62);margin-top:5px;line-height:1.35;font-weight:300}
+
+/* ---------- table ---------- */
+.tb{width:100%;border-collapse:collapse;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden}
+.tb th{background:rgba(225,47,160,.24);color:#fff;font-size:16px;letter-spacing:.07em;text-transform:uppercase;text-align:left;padding:13px 18px;font-weight:700;border-bottom:2px solid var(--mag)}
+.tb td{padding:12px 18px;font-size:19px;line-height:1.4;color:#E8ECF3;border-bottom:1px solid rgba(255,255,255,.09);font-weight:300;vertical-align:top}
+.tb tbody tr:last-child td{border-bottom:none}
+.tb tbody tr:nth-child(even){background:rgba(255,255,255,.035)}
+.tb td b{font-weight:700;color:#fff}
+
+/* ---------- bars ---------- */
+.barrow{display:flex;align-items:center;gap:16px;margin-bottom:13px}
+.blab{flex:0 0 40%;font-size:17px;color:#E8ECF3;line-height:1.3;font-weight:300}
+.blab .sub{font-size:13.5px;color:rgba(255,255,255,.45);margin-top:3px}
+.btrack{flex:1 1 0;height:24px;background:rgba(255,255,255,.09);border-radius:6px;overflow:hidden}
+.bfill{height:100%;border-radius:6px}
+.bval{flex:0 0 130px;text-align:right;font-size:20px;font-weight:700}
+
+/* ---------- dot grid ---------- */
+.dotgrid{display:grid;gap:5px;margin:10px 0}
+.dot{display:block;width:100%;aspect-ratio:1;border-radius:2px}
+.dotleg{display:flex;gap:26px;font-size:15px;color:rgba(255,255,255,.62);margin-top:8px}
+.dk{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+
+/* ---------- framework letters ---------- */
+.lrows{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.lrow{display:flex;gap:17px;align-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.lbadge{flex:0 0 52px;height:52px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#0F1218}
+.lbody{min-width:0}
+.lname{font-size:21px;font-weight:700;line-height:1.2}
+.ldesc{font-size:17px;color:rgba(255,255,255,.72);margin-top:4px;line-height:1.35;font-weight:300}
+
+/* ---------- journey ---------- */
+.journey{display:flex;align-items:stretch;gap:16px;flex:1;min-height:0}
+.jstep{flex:1 1 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.jnum{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#0F1218}
+.jcard{flex:1;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.jcard.jwin{background:rgba(63,203,142,.12);border-color:rgba(63,203,142,.45)}
+.jtag{font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:9px}
+.jt{font-size:27px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:11px}
+.jd{font-size:18px;line-height:1.5;color:#D6DCE6;font-weight:300}
+.jd b{font-weight:700;color:#fff}
+.jm{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.jm span{font-size:13.5px;background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:20px;padding:4px 12px;color:rgba(255,255,255,.8)}
+.jarrow{align-self:center;font-size:34px;color:rgba(255,255,255,.28)}
+
+/* ---------- awards ---------- */
+.award{display:flex;gap:28px;margin-bottom:26px;flex:1;min-height:0}
+.aw{flex:1 1 0;border-radius:18px;padding:36px 38px;display:flex;flex-direction:column;justify-content:center;border:2px solid}
+.aw-gold{background:linear-gradient(135deg,rgba(242,178,51,.22),rgba(242,178,51,.06));border-color:rgba(242,178,51,.6)}
+.aw-mag{background:linear-gradient(135deg,rgba(225,47,160,.22),rgba(155,77,224,.08));border-color:rgba(225,47,160,.6)}
+.awt{font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700}
+.awn{font-size:62px;font-weight:700;line-height:1.05;margin:14px 0 16px;letter-spacing:-.02em}
+.aw-gold .awn{color:var(--amber)}
+.aw-mag .awn{color:var(--pink)}
+.awd{font-size:19px;line-height:1.45;color:#D6DCE6;font-weight:300}
+
+/* ---------- sites ---------- */
+.sites{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1;min-height:0}
+.site{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.sh{padding:11px 18px;font-size:15px;letter-spacing:.1em;font-weight:700;color:#0F1218}
+.sb{padding:18px;flex:1}
+.su{font-size:17px;color:var(--cyan);margin-bottom:10px;word-break:break-all;font-weight:500}
+.sd{font-size:17px;line-height:1.45;color:#D6DCE6;font-weight:300}
+.site-doc .su{color:var(--green)}
+
+/* ---------- dropzone ---------- */
+.drop{flex:1;border:3px dashed rgba(255,255,255,.26);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(255,255,255,.035);min-height:250px;padding:30px}
+.dropi{font-size:52px;color:rgba(255,255,255,.26);line-height:1}
+.dropl{font-size:23px;color:rgba(255,255,255,.72);margin-top:14px;font-weight:500;text-align:center}
+.drops{font-size:17px;color:rgba(255,255,255,.44);margin-top:7px;text-align:center;font-weight:300}
+
+/* ---------- QR ---------- */
+.qrrow{display:flex;gap:18px;margin-bottom:20px}
+.qrcard{flex:1 1 0;background:#fff;border-radius:14px;padding:16px;text-align:center;min-width:0}
+.qrbox{width:100%;aspect-ratio:1;display:block}
+.qrbox svg{width:100%;height:100%;display:block}
+.qrcap{font-size:17px;font-weight:700;color:var(--body);margin-top:11px;line-height:1.2}
+.qrnote{font-size:13px;color:#5A6273;margin-top:4px;word-break:break-all}
+
+/* ---------- cover ---------- */
+.l-cover .inner{padding:54px 72px 74px}
+.cover{display:flex;flex-direction:column;height:100%}
+.cov-logos{display:flex;align-items:center;gap:40px;background:#fff;border-radius:24px;padding:24px 44px;align-self:flex-start}
+.cov-logos img{height:140px;width:auto;display:block}
+.cov-min{color:var(--body);line-height:1.25}
+.cov-min b{display:block;font-size:28px;letter-spacing:.04em}
+.cov-min span{display:block;font-size:25px;color:#5A6273;margin-top:6px}
+.cov-rule{width:1px;height:58px;background:#D5DAE3}
+.cov-main{flex:1;display:flex;gap:52px;align-items:center;min-height:0}
+.cov-left{flex:1 1 0;min-width:0}
+.cov-kat{font-size:21px;letter-spacing:.2em;color:var(--pink);font-weight:700}
+/* one line, heavy, yellow; Poppins named first so the weight is real, not a faux bold of Questrial */
+.cov-head{margin-top:22px}
+.slide h1.cov-h1{font-family:'Poppins',var(--f);font-size:150px;line-height:1;font-weight:800;margin:12px 0 0;letter-spacing:-.02em;
+  color:#FFD23F;white-space:nowrap;text-shadow:0 6px 30px rgba(255,210,63,.18)}
+.cov-h2{font-family:'Poppins',var(--f);font-size:70px;line-height:1.1;font-weight:700;letter-spacing:.14em;color:#8FD8FF;margin-top:6px;white-space:nowrap}
+.cov-sub{font-size:24px;line-height:1.4;color:#D6DCE6;font-weight:300}
+.cov-school{display:flex;align-items:center;gap:16px;margin-top:36px}
+.cov-school img{height:96px;width:auto;display:block}
+.cov-sn{font-size:27px;font-weight:700;color:#fff;line-height:1.15}
+.cov-ss{font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.66);margin-top:5px}
+.cov-right{flex:0 0 640px}
+.idcard{background:#000;border:3px solid var(--mag);border-radius:16px;padding:8px 0}
+.idrow{display:flex;gap:18px;padding:15px 26px;border-bottom:1px solid rgba(255,255,255,.14)}
+.idrow:last-child{border-bottom:none}
+.idk{flex:0 0 200px;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);font-weight:700;padding-top:2px}
+.idv{flex:1;font-size:20px;color:#fff;font-weight:500;line-height:1.3;min-width:0}
+.idv-todo{color:var(--amber);border-bottom:2px dashed rgba(242,178,51,.55);display:inline-block}
+
+/* ---------- close ---------- */
+.l-close .inner{justify-content:center}
+.close{display:flex;gap:60px;align-items:center}
+.cl-left{flex:1 1 0;min-width:0}
+.cl-k{font-size:22px;letter-spacing:.2em;color:var(--pink);font-weight:700}
+.cl-h{font-size:82px;line-height:1.05;font-weight:700;margin:16px 0 20px;letter-spacing:-.025em;
+  color:#FFD23F;-webkit-text-fill-color:#FFD23F}
+.cl-s{font-size:25px;line-height:1.4;color:#D6DCE6;font-weight:300}
+.cl-right{flex:0 0 360px}
+
+/* ---------- responsive chrome ---------- */
+@media (max-width:1100px){
+  #app{grid-template-columns:0 1fr}
+  #sb{visibility:hidden;width:0}
+  #app.showsb{grid-template-columns:270px 1fr}
+  #app.showsb #sb{visibility:visible;width:auto}
+}
+@media (max-width:760px){
+  .bar{gap:6px;padding:9px 11px;flex-wrap:nowrap;overflow:hidden}
+  .now{display:none}
+  .btn .lb{display:none}
+  #full{display:none}
+  .hint{display:none}
+}
+/* phone held upright: the 16:9 slide is small, so say how to see it larger */
+#rot{display:none}
+@media (max-width:760px) and (orientation:portrait){
+  #rot{display:block;flex:0 0 auto;padding:10px 14px calc(10px + env(safe-area-inset-bottom));text-align:center;
+    font-size:13px;color:rgba(255,255,255,.62);background:#1B2029;border-top:1px solid var(--line)}
+  #rot b{color:#fff}
+}
+
+/* ---------- cover achievement strip ---------- */
+.cov-win{display:flex;gap:16px;margin-top:30px}
+.cw{flex:1 1 0;background:rgba(255,255,255,.07);border:1px solid var(--line);border-left:6px solid;border-radius:12px;padding:15px 20px}
+.cw .cwt{font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:700}
+.cw .cwv{font-size:26px;font-weight:700;line-height:1.15;margin-top:6px}
+.cw .cws{font-size:14.5px;color:rgba(255,255,255,.6);margin-top:5px;font-weight:300}
+
+/* ---------- close chips ---------- */
+.cl-chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.cl-chips span{font-size:18px;padding:9px 18px;border-radius:26px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#E8ECF3}
+.cl-chips b{font-weight:700;color:#fff}
+
+/* ---------- competition photo row ---------- */
+.prow{display:flex;gap:40px;flex:1;min-height:0}
+.pfig{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;margin:0;min-height:0}
+.pfig img{display:block;height:640px;width:auto;border-radius:14px;border:3px solid rgba(255,255,255,.22);
+  box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.pfig figcaption{font-size:17px;color:rgba(255,255,255,.72);margin-top:13px;text-align:center;
+  font-weight:300;max-width:480px;line-height:1.35}
+.pfig figcaption b{color:#fff;font-weight:700}
+.pside{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:18px}
+.acheque{background:linear-gradient(135deg,rgba(242,178,51,.22),rgba(242,178,51,.06));
+  border:2px solid rgba(242,178,51,.6);border-radius:16px;padding:22px 26px}
+.aq-t{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);font-weight:700}
+.aq-n{font-size:42px;font-weight:700;color:var(--amber);line-height:1.1;margin:8px 0 6px;letter-spacing:-.01em}
+.aq-v{font-size:34px;font-weight:700;color:#fff;line-height:1.1}
+.aq-s{font-size:16px;color:rgba(255,255,255,.66);margin-top:10px;line-height:1.4;font-weight:300}
+.pside .drop{min-height:170px}
+
+/* ---------- montage video cards ---------- */
+.vcard{flex:1;display:flex;flex-direction:column;background:rgba(255,255,255,.06);
+  border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:0}
+.vtag{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.vt{font-size:30px;font-weight:700;color:#fff;line-height:1.15;margin:7px 0 15px}
+.vplay{width:100%;height:auto;display:block;border-radius:11px;background:#05070c;
+  border:1px solid rgba(255,255,255,.14);aspect-ratio:16/9;object-fit:cover}
+.vmeta{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.vmeta span{font-size:14px;background:rgba(255,255,255,.1);border:1px solid var(--line);
+  border-radius:20px;padding:4px 13px;color:rgba(255,255,255,.82)}
+.vdesc{font-size:18px;line-height:1.5;color:#D6DCE6;margin-top:14px;font-weight:300}
+.vdesc b{font-weight:700;color:#fff}
+
+/* ---------- certificate evidence slides ---------- */
+.crow{display:flex;gap:40px;flex:1;min-height:0}
+.cfig{flex:0 0 auto;display:flex;flex-direction:column;margin:0;min-height:0}
+.cfig img{display:block;height:600px;width:auto;border-radius:12px;
+  border:3px solid rgba(255,255,255,.22);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.cfig figcaption{font-size:17px;color:rgba(255,255,255,.72);margin-top:13px;
+  font-weight:300;line-height:1.35;max-width:800px}
+.cfig figcaption b{color:#fff;font-weight:700}
+.cside{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:18px}
+.cmini{margin:0;display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.06);
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.cmini img{flex:0 0 auto;height:230px;width:auto;border-radius:9px;
+  border:1px solid rgba(255,255,255,.2);display:block}
+.cmini figcaption{font-size:17px;color:rgba(255,255,255,.72);font-weight:300;line-height:1.4}
+
+/* ---------- competition logo band on a content slide ---------- */
+.slide-logos{display:flex;align-items:center;gap:30px;background:#fff;border-radius:14px;
+  padding:16px 28px;align-self:flex-start;margin-bottom:22px}
+/* 96px keeps the smallest line on the NICTSeD mark ("CyberSAFE Challenge Trophy
+   2026") at ~19px in design units, which survives the deck's fit-to-screen
+   scale and stays readable. It measured 25/126 of the source image height. */
+.slide-logos img{height:96px;width:auto;display:block}
+
+/* ---------- clickable site cards and QR cards ---------- */
+a.site-link,a.qrcard{text-decoration:none;color:inherit;display:flex;flex-direction:column;cursor:pointer;
+  transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+a.qrcard{display:block}
+a.site-link:hover,a.site-link:focus-visible{transform:translateY(-4px);border-color:var(--cyan);
+  box-shadow:0 14px 34px rgba(0,0,0,.4);outline:none}
+a.qrcard:hover,a.qrcard:focus-visible{transform:translateY(-4px);box-shadow:0 14px 34px rgba(0,0,0,.45);outline:none}
+a.site-link .su{text-decoration:underline;text-decoration-color:rgba(63,201,224,.45);text-underline-offset:4px}
+.ext{font-size:.95em;margin-left:4px;color:var(--cyan)}
+
+/* ---------- slide 11: sijil ---------- */
+.certs{display:flex;gap:40px;flex:1;min-height:0;align-items:flex-start}
+.cinfo{flex:1 1 0;min-width:0}
+a.cert{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit}
+a.cert img{display:block;height:700px;width:auto;border-radius:10px;border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 18px 44px rgba(0,0,0,.45);transition:transform .18s ease,box-shadow .18s ease}
+a.cert:hover img{transform:translateY(-5px);box-shadow:0 24px 54px rgba(0,0,0,.55)}
+a.cert .cc{font-size:17px;line-height:1.35;margin-top:14px;color:rgba(255,255,255,.72);text-align:center}
+a.cert .cc b{color:#fff;font-size:20px}
+
+/* ---------- slide: gambar dan video sepanjang pertandingan ---------- */
+.gv{display:flex;flex-direction:column;gap:28px;flex:1;min-height:0}
+.gv-top{display:flex;gap:40px;align-items:flex-start}
+.gv-media{flex:0 0 680px;margin:0;display:flex;flex-direction:column;min-width:0}
+.gv-tag{font-size:14px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.gv-v,.gv-yt{width:680px;height:383px;display:block;border-radius:12px;background:#05070c;
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 36px rgba(0,0,0,.4);overflow:hidden}
+.gv-v{object-fit:contain}
+.gv-yt iframe{width:100%;height:100%;border:0;display:block}
+.gv-media figcaption{font-size:16px;color:rgba(255,255,255,.72);margin-top:11px;line-height:1.35}
+.gv-media figcaption b{color:#fff}
+.gv-qr{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:flex-start}
+/* same top and same height as the two 680x383 players beside it */
+.gv-qr a.qrcard{height:383px;width:300px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px}
+.gv-qr .qrbox{width:262px;flex:0 0 auto}
+.gv-bot{display:flex;gap:24px;align-items:flex-start}
+a.gv-ph{flex:0 0 auto;display:flex;flex-direction:column;text-decoration:none;color:inherit;width:293px}
+a.gv-ph img{width:293px;height:220px;object-fit:cover;display:block;border-radius:10px;
+  border:1px solid rgba(255,255,255,.2);box-shadow:0 12px 30px rgba(0,0,0,.4);transition:transform .18s ease}
+a.gv-ph:hover img{transform:translateY(-4px)}
+a.gv-ph span{font-size:15px;line-height:1.35;color:rgba(255,255,255,.72);margin-top:9px}
+a.gv-ph span b{color:#fff}
+.gv-info{flex:1 1 0;min-width:0;padding-left:16px}
+
+/* phone held sideways: every pixel of height goes to the slide */
+@media (max-height:500px) and (orientation:landscape){
+  .bar{padding:5px 10px;gap:6px}
+  .btn{padding:4px 10px;font-size:12px}
+  .hint{display:none}
+  #rot{display:none}
+}
+
+/* ---------- slide 18: video kemahiran digital ---------- */
+.kv{display:flex;flex-direction:column;align-items:flex-start}
+.kv-v{width:720px;height:405px;display:block;border-radius:12px;background:#05070c;object-fit:contain;
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 36px rgba(0,0,0,.4)}
+.kv .vmeta{margin-top:12px}
+
+/* ---------- slide: dari kod ke idea ---------- */
+.kod{display:grid;grid-template-columns:930px 1fr;gap:40px;align-items:start}
+.kd-studio{background:#10131A;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;box-shadow:0 22px 60px rgba(0,0,0,.45)}
+.kd-bar{height:42px;display:flex;align-items:center;gap:9px;padding:0 18px;background:#181C25;border-bottom:1px solid rgba(255,255,255,.08)}
+.kd-bar .dot{width:12px;height:12px;border-radius:50%}
+.kd-fn{font-family:'DejaVu Sans Mono',Menlo,Consolas,monospace;font-size:14px;color:rgba(255,255,255,.55);margin-left:10px}
+.kd-live{margin-left:auto;font-size:12px;letter-spacing:.14em;color:#3FCB8E;font-weight:700}
+.kd-body{display:flex;gap:22px;padding:22px 22px 26px;align-items:center}
+.kd-code{flex:1 1 0;min-width:0;font-family:'DejaVu Sans Mono',Menlo,Consolas,monospace;font-size:16.5px;line-height:2.05;color:#D6DCE6;white-space:pre}
+.kd-code .k{color:#FF5FC8}.kd-code .s{color:#F2B233}.kd-code .f{color:#3FC9E0}.kd-code .c{color:#6B7385}.kd-code .n{color:#3FCB8E}
+.kd-caret{display:inline-block;width:9px;height:18px;background:#FF5FC8;vertical-align:-3px;animation:kdblink 1s steps(1) infinite}
+@keyframes kdblink{50%{opacity:0}}
+.kd-prev{flex:0 0 288px}
+.kd-slide{position:relative;width:288px;height:170px;background:#313842;border-radius:10px;border:1px solid rgba(255,255,255,.14);overflow:hidden}
+.kd-b{position:absolute;border-radius:4px;opacity:0}
+.kd-cap{font-size:14px;color:rgba(255,255,255,.6);margin-top:10px;line-height:1.35}
+.kd-tools{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.kt-h{font-size:15px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.kt ul{list-style:none}
+.kt li{padding:9px 0 9px 14px;border-left:3px solid rgba(255,255,255,.14);margin-bottom:6px}
+.kt li b{display:block;font-size:19px;color:#fff;font-weight:700;line-height:1.2}
+.kt li span{display:block;font-size:14.5px;color:rgba(255,255,255,.66);line-height:1.35;margin-top:2px}
+.kpipe{display:flex;align-items:stretch;gap:12px;margin-top:30px}
+.kp{flex:1 1 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-top:5px solid;border-radius:12px;padding:14px 18px}
+.kp-t{font-size:22px;font-weight:700;letter-spacing:.12em}
+.kp-d{font-size:15px;color:rgba(255,255,255,.72);margin-top:5px;line-height:1.35}
+.kp-ar{align-self:center;font-size:26px;color:rgba(255,255,255,.35)}
+@media (prefers-reduced-motion:reduce){.kd-l,.kd-b{animation:none!important;opacity:1;clip-path:none}}
+.kd-note{font-size:17px;line-height:1.5;color:rgba(255,255,255,.72);margin-top:18px;padding-left:14px;border-left:3px solid #FF5FC8}
+.kd-note b{color:#fff}
+
+/* slide 19 link card and slide 20 large player */
+a.kv-link{display:block;text-decoration:none;color:inherit}
+.kv-thumb{position:relative;width:720px;height:405px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 36px rgba(0,0,0,.4)}
+.kv-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+a.kv-link:hover .kv-thumb img{transform:scale(1.03)}
+.kv-play{position:absolute;left:50%;top:50%;width:110px;height:110px;margin:-55px 0 0 -55px;border-radius:50%;background:rgba(225,47,160,.92);color:#fff;font-size:44px;display:flex;align-items:center;justify-content:center;padding-left:8px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.kv-go{margin-top:12px;font-size:18px;font-weight:700;color:#3FCB8E}
+.kvbig{display:flex;flex-direction:column;align-items:center}
+.kvbig-v{width:1280px;height:720px;display:block;border-radius:14px;background:#05070c;object-fit:contain;border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.kvbig .vmeta{margin-top:14px;justify-content:center}
+.klens{display:flex;align-items:center;gap:14px;margin-top:16px;padding:12px 18px;border-radius:12px;background:rgba(63,203,142,.09);border:1px solid rgba(63,203,142,.35);font-size:15.5px;color:rgba(255,255,255,.82)}
+.klens b{color:#3FCB8E;letter-spacing:.12em;text-transform:uppercase;font-size:14px;margin-right:6px;white-space:nowrap}
+.klens span{padding-left:14px;border-left:2px solid rgba(63,203,142,.4)}
