@@ -430,3 +430,15 @@ a.jn-letter img{display:block;height:600px;width:auto;border-radius:8px;border:1
 a.jn-letter:hover img{transform:translateY(-4px)}
 a.jn-letter span{font-size:15px;line-height:1.35;margin-top:12px;color:rgba(255,255,255,.72);text-align:center}
 a.jn-letter span b{color:#fff;font-size:17px}
+/* slide advokasi */
+.adv{display:flex;gap:44px;flex:1;min-height:0;align-items:flex-start}
+a.adv-post{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:inherit}
+a.adv-post img{display:block;height:660px;width:auto;border-radius:12px;border:1px solid rgba(255,255,255,.2);box-shadow:0 20px 50px rgba(0,0,0,.5);transition:transform .2s}
+a.adv-post:hover img{transform:translateY(-4px)}
+a.adv-post span{font-size:15px;color:rgba(255,255,255,.7);margin-top:10px}
+a.adv-post span b{color:#fff}
+.adv-m{flex:0 0 780px;display:flex;flex-direction:column}
+.adv-r{flex:1 1 0;min-width:0;display:flex;flex-direction:column;padding-top:34px}
+.adv-v{width:780px;height:439px;display:block;border-radius:12px;background:#05070c;border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 46px rgba(0,0,0,.45)}
+.adv-lead{font-size:21px;line-height:1.5;color:#E8ECF3;font-weight:300;margin:0 0 16px}
+.adv-lead b{color:#fff;font-weight:700}
