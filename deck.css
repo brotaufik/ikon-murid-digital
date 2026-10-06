@@ -61,9 +61,10 @@ kbd{background:rgba(255,255,255,.1);border:1px solid var(--line);border-radius:5
 
 .slide{position:absolute;inset:0;display:none;overflow:hidden;
   background:
-    radial-gradient(ellipse 65% 55% at 92% -4%,rgba(255,210,63,.17) 0%,rgba(255,210,63,.05) 38%,rgba(255,210,63,0) 64%),
-    radial-gradient(ellipse 55% 50% at -4% 104%,rgba(242,178,51,.11) 0%,rgba(242,178,51,0) 62%),
-    linear-gradient(158deg,#0D0C09 0%,#060606 48%,#0B0905 100%)}
+    radial-gradient(ellipse 60% 50% at 94% -6%,rgba(255,210,63,.15) 0%,rgba(255,210,63,.04) 40%,rgba(255,210,63,0) 66%),
+    radial-gradient(ellipse 75% 70% at 12% 88%,rgba(22,52,120,.55) 0%,rgba(14,34,84,.25) 42%,rgba(10,20,50,0) 72%),
+    radial-gradient(ellipse 50% 45% at 100% 100%,rgba(242,178,51,.07) 0%,rgba(242,178,51,0) 60%),
+    linear-gradient(158deg,#05070D 0%,#081430 46%,#04060C 100%)}
 .slide::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,rgba(255,210,63,0),rgba(255,210,63,.55) 50%,rgba(255,210,63,0));pointer-events:none;z-index:1}
 .slide.on{display:block}
 .shards{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
