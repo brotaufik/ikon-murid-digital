@@ -494,6 +494,13 @@ a.adv-post span b{color:#fff}
 .dsm-row a:hover{transform:translateY(-4px)}
 .dsm-row img{display:block;height:590px;width:auto;border-radius:14px;border:1px solid rgba(255,255,255,.2);box-shadow:0 16px 40px rgba(0,0,0,.5)}
 .dsm-row i{position:absolute;left:-10px;top:-10px;width:34px;height:34px;border-radius:50%;background:#FFD23F;color:#10131A;font-style:normal;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+/* ---------- bottom navigation (HOME / BACK / NEXT centred) ---------- */
+.nbar{flex:0 0 auto;position:relative;display:flex;justify-content:center;align-items:center;gap:12px;padding:10px 18px;background:#1B2029;border-top:1px solid var(--line)}
+.nbar .btn{padding:8px 20px;font-size:14px}
+.nbar .hint{position:absolute;right:18px;top:50%;transform:translateY(-50%);padding:0;border:0;background:none;text-align:right}
+@media (max-width:1100px){ .nbar .hint{display:none} }
+@media (max-width:760px){ .nbar{padding:8px 10px;gap:10px} .nbar .btn{padding:7px 18px;font-size:15px} }
+@media (max-height:500px) and (orientation:landscape){ .nbar{padding:4px 10px;gap:8px} .nbar .btn{padding:4px 14px;font-size:13px} }
 </style>
 </head>
 <body>
@@ -509,9 +516,6 @@ a.adv-post span b{color:#fff}
   <main id="main">
     <div class="bar">
       <button class="btn" id="tg" title="Tunjuk atau sembunyi panel sisi">&#9776;</button>
-      <button class="btn" id="home" title="Kembali ke muka hadapan">&#8962; <span class="lb">HOME</span></button>
-      <button class="btn" id="prev" title="Slide sebelum">&#8592; <span class="lb">BACK</span></button>
-      <button class="btn" id="next" title="Slide seterusnya"><span class="lb">NEXT</span> &#8594;</button>
       <div class="now"><span id="pos">01</span> / 24 &middot; <span id="sect"></span></div>
       <div class="spacer"></div>
       <button class="btn" id="full" title="Skrin penuh">&#9974; <span class="lb">Skrin penuh</span></button>
@@ -988,8 +992,13 @@ a.adv-post span b{color:#fff}
   </div>
 </div></div><div class="sfoot"><span class="sf-l">Penutup</span><span class="sf-r">24 / 24</span></div></section></div>
     </div>
+    <nav class="nbar" aria-label="Navigasi slide">
+      <button class="btn" id="home" title="Kembali ke muka hadapan">&#8962; <span class="lb">HOME</span></button>
+      <button class="btn" id="prev" title="Slide sebelum">&#8592; <span class="lb">BACK</span></button>
+      <button class="btn" id="next" title="Slide seterusnya"><span class="lb">NEXT</span> &#8594;</button>
+      <div class="hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navigasi &middot; <kbd>H</kbd> utama &middot; <kbd>N</kbd> nota</div>
+    </nav>
     <div id="rot">&#8635; Pusingkan telefon ke <b>mod landskap</b> untuk paparan slide lebih besar &middot; leret kiri atau kanan untuk tukar slide</div>
-    <div class="hint"><kbd>&#8592;</kbd> <kbd>&#8594;</kbd> navigasi &middot; <kbd>H</kbd> utama &middot; <kbd>N</kbd> nota &middot; ketik skrin untuk ke hadapan</div>
     <div id="notes"><div class="nt-h">Nota penyampai</div><div id="nt-b"></div></div>
   </main>
 </div>
